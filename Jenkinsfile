@@ -8,9 +8,9 @@ pipeline {
  }
  stages {
   stage('Build'){
-   steps {
-          sh './gradlew clean build'
-      }
-  }
+			steps {
+				bat "mvn clean install -DskipTests"
+			}
+		}
  }
 }
