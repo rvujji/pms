@@ -9,7 +9,6 @@ pipeline {
  stages {
   stage('Build'){
 			steps {
-                sh "cd pmp"
 				sh "mvn clean install -DskipTests"
 			}
 		}
