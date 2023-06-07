@@ -1,7 +1,7 @@
 package com.xinthe.pms.service.impl;
 
-import com.xinthe.pms.model.PmsCollection;
-import com.xinthe.pms.repository.PMSRepository;
+import com.xinthe.pms.model.Project;
+import com.xinthe.pms.repository.ProjectRepository;
 import com.xinthe.pms.service.PmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,40 +11,40 @@ import java.util.List;
 @Service
 public class PmsServiceImpl implements PmsService {
 
-    private final PMSRepository pmsRepository;
+    private final ProjectRepository projectRepository;
 
     @Autowired
-    public PmsServiceImpl(PMSRepository pmsRepository) {
-        this.pmsRepository = pmsRepository;
+    public PmsServiceImpl(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
     }
 
     @Override
-    public List<PmsCollection> getAllCollections() {
-        return pmsRepository.findAll();
+    public List<Project> getAllCollections() {
+        return projectRepository.findAll();
     }
 
     @Override
-    public PmsCollection getCollectionById(String id) {
-        return pmsRepository.findById(id).orElse(null);
+    public Project getCollectionById(String id) {
+        return projectRepository.findById(id).orElse(null);
     }
 
     @Override
-    public PmsCollection createCollection(PmsCollection collection) {
-        return pmsRepository.save(collection);
+    public Project createCollection(Project collection) {
+        return projectRepository.save(collection);
     }
 
     @Override
-    public PmsCollection updateCollection(String id, PmsCollection collection) {
-        PmsCollection existingCollection = pmsRepository.findById(id).orElse(null);
+    public Project updateCollection(String id, Project collection) {
+        Project existingCollection = projectRepository.findById(id).orElse(null);
         if (existingCollection != null) {
             collection.setId(existingCollection.getId());
-            return pmsRepository.save(collection);
+            return projectRepository.save(collection);
         }
         return null;
     }
 
     @Override
     public void deleteCollection(String id) {
-        pmsRepository.deleteById(id);
+        projectRepository.deleteById(id);
     }
 }
