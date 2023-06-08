@@ -1,0 +1,22 @@
+pipeline {
+ agent any
+ environment {
+        mavenHome = tool 'maven'
+    }
+ tools {
+  jdk 'openjdk-11'
+    }
+ stages {
+        stage('Build'){
+			steps {
+				bat "mvn clean install -DskipTests"
+            }
+        }
+        stage('Sonar') {
+            steps {
+                sh "mvn sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
+            }
+        }
+
+    }
+}
