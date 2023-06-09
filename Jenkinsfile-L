@@ -30,7 +30,7 @@ pipeline {
             }
             stage ('Build docker image') {
                 steps {
-                    sh 'docker build -t turkogluc/spring-jenkins-demo .'
+                    sh 'docker build -t xn-poc/pms .'
                 }
             }
         }
