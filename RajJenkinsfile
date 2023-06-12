@@ -1,21 +1,21 @@
 pipeline {
  agent any
  environment {
-  mavenHome = tool 'maven'
+  	mavenHome = tool 'maven'
  }
  tools {
-  jdk 'jdk-17'
+  	jdk 'jdk-17'
  }
  stages {
-  stage('Build'){
-			steps {
-				bat "mvn clean install -DskipTests"
+	  stage('Build'){
+				steps {
+					bat "mvn clean install -DskipTests"
+				}
 			}
-		}
-  stage('Sonarqube') {
-                environment {
-                    scannerHome = tool 'SonarQubeScanner'
-                }
-                		
+	  stage('Sonarqube') {
+			environment {
+			    scannerHome = tool 'SonarQubeScanner'
+			}
+           }    		
  }
 }
