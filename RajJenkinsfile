@@ -16,10 +16,6 @@ pipeline {
                 environment {
                     scannerHome = tool 'SonarQubeScanner'
                 }
-                steps {
-                    withSonarQubeEnv('sonarqube') {
-                    bat "mvn clean verify sonar:sonar -Dsonar.projectKey=pms -Dsonar.projectName='pms' -Dsonar.token=sqp_182edfccb0964fa05165978363c0ba66aa03ed86"
-                }
-		}		
+                		
  }
 }
