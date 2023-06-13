@@ -4,7 +4,7 @@ pipeline {
         mavenHome = tool 'maven'
     }
  tools {
-  jdk 'openjdk-11'
+  jdk 'openjdk-17'
     }
  stages {
             stage('Build'){
@@ -28,10 +28,13 @@ pipeline {
                 */
                 }
             }
+            /*
+            Commented to remove docker image build stage from jenkins pipeline
             stage ('Build docker image') {
                 steps {
                     sh 'docker build -t xn-poc/pms .'
                 }
             }
+            */
         }
 }
