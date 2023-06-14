@@ -21,6 +21,7 @@
         <springfox.swagger.version>2.9.2</springfox.swagger.version>
         <spring.cloud.openfeign.version>4.0.3</spring.cloud.openfeign.version>
         <spring.cloud.hystrix.version>2.2.10.RELEASE</spring.cloud.hystrix.version>
+        <sonar.exclusions>target/*</sonar.exclusions>
     </properties>
     <dependencies>
         <dependency>
