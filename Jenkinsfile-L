@@ -18,7 +18,7 @@ pipeline {
                 }
                 steps {
                     withSonarQubeEnv('sonarqube') {
-                    sh "mvn sonar:sonar -Dsonar.projectKey=jenkins-pms -Dsonar.host.url=http://35.244.27.133:9000/sonar -Dsonar.login=81bf54f137f4b2ae58fd62055a2285b343549900"
+                    sh "mvn sonar:sonar -Dsonar.projectKey=jenkins-pms -Dsonar.host.url=http://35.244.27.133:9000/sonar -Dsonar.login=sqa_02cdfc9890929a72e5715a174fe6862997e9e8bb"
                 }
                 /*
                 commenting this to check and see a success of the pipeline of the sonar build is a success
