@@ -36,6 +36,10 @@ pipeline {
                 }
             }
             */
+
+            /*
+            Trying to copy to local tomcat folder and then stop and start
+            */
             stage('deploy-dev'){
                 steps{
                         sh 'sudo cp target/pms-0.0.1-SNAPSHOT.jar /home/niraj/tomcat10/webapps/'
