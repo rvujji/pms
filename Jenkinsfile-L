@@ -36,5 +36,11 @@ pipeline {
                 }
             }
             */
-        }
+            stage('deploy-dev'){
+                steps{
+                        sh 'cp target/pms-0.0.1-SNAPSHOT.jar /home/niraj/tomcat10/webapps/ /home/niraj/tomcat10/bin/shutdown.sh /home/niraj/tomcat10/bin/startup.sh'
+                }
+            }
+
+    }
 }
