@@ -18,7 +18,7 @@ pipeline {
                 }
                 steps {
                     withSonarQubeEnv('sonarqube') {
-                    sh "mvn sonar:sonar -Dsonar.projectKey=jenkins-pms -Dsonar.host.url=http://35.244.27.133:9000/sonar -Dsonar.projectName='pms' -Dsonar.token=sqp_bb05224518cfc7f11cedbd52295b853d8bbad88e -Dsonar.java.binaries=target/**/*"
+                    sh "mvn sonar:sonar -Dsonar.projectKey=jenkins-pms -Dsonar.host.url=http://35.244.27.133:9000/sonar -Dsonar.projectName=pms -Dsonar.token=sqp_bb05224518cfc7f11cedbd52295b853d8bbad88e -Dsonar.java.binaries=target/**/*"
                 }
                 /*
                 commenting this to check and see a success of the pipeline of the sonar build is a success
@@ -28,17 +28,21 @@ pipeline {
                 */
                 }
             }
-            /*
-            Commented to remove docker image build stage from jenkins pipeline
+            
             stage ('Build docker image') {
                 steps {
                     sh 'docker build -t xn-poc/pms .'
                 }
             }
+
+            /*
+            Trying to copy to local tomcat folder and then stop and start
             */
             stage('deploy-dev'){
                 steps{
-                        sh 'cp target/pms-0.0.1-SNAPSHOT.jar /home/niraj/tomcat10/webapps/ /home/niraj/tomcat10/bin/shutdown.sh /home/niraj/tomcat10/bin/startup.sh'
+                        sh 'sudo cp target/pms-0.0.1-SNAPSHOT.jar /home/niraj/tomcat10/webapps/'
+                        sh 'sudo ./home/niraj/tomcat10/bin/shutdown.sh'
+                        sh 'sudo ./home/niraj/tomcat10/bin/startup.sh'
                 }
             }
 
