@@ -40,9 +40,9 @@ pipeline {
             */
             stage('deploy-dev'){
                 steps{
-                        sh 'sudo cp target/pms-0.0.1-SNAPSHOT.jar /home/niraj/tomcat10/webapps/'
-                        sh 'sudo ./home/niraj/tomcat10/bin/shutdown.sh'
-                        sh 'sudo ./home/niraj/tomcat10/bin/startup.sh'
+                        sh 'cp target/pms-0.0.1-SNAPSHOT.jar /home/niraj/tomcat10/webapps/'
+                        sh './home/niraj/tomcat10/bin/shutdown.sh'
+                        sh './home/niraj/tomcat10/bin/startup.sh'
                 }
             }
 
