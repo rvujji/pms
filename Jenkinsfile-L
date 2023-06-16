@@ -36,7 +36,7 @@ pipeline {
             }
             stage ('Login to docker') {
                 steps {
-                        withDockerRegistry(credentialsId: 'docker-registry', url: 'https://hub.docker.com/u/niraj1a/') {
+                        withDockerRegistry(credentialsId: 'docker-registry', registryUrl: 'https://index.docker.io/v2/') {
                         sh 'docker push niraj1a/xn-poc-pms'
                     }
                 }
