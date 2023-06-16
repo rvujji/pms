@@ -1,12 +1,12 @@
 pipeline {
- agent any
- environment {
+    agent any
+    environment {
         mavenHome = tool 'maven'
     }
- tools {
-  jdk 'openjdk-17'
+    tools {
+        jdk 'openjdk-17'
     }
- stages {
+    stages {
             stage('Build'){
                 steps {
                     sh "mvn clean install"
@@ -31,8 +31,20 @@ pipeline {
             
             stage ('Build docker image') {
                 steps {
-                    sh 'docker build -t xn-poc/pms .'
+                    sh 'docker build -t niraj1a/xn-poc-pms .'
                 }
+            }
+            stage ('Login to docker') {
+                steps {
+                        withDockerRegistry(credentialsId: 'docker-registry', url: 'https://hub.docker.com/u/niraj1a/') {
+                        sh 'docker push niraj1a/xn-poc-pms'
+                    }
+                }
+            }
+            stage ('push the image to registry'){
+                steps {
+                    sh 'docker push xn-poc/pms'
+                }    
             }
 
             /*
@@ -45,6 +57,5 @@ pipeline {
                         sh './home/niraj/tomcat10/bin/startup.sh'
                 }
             }
-
     }
 }
