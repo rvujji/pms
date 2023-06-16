@@ -43,18 +43,22 @@ pipeline {
             }
             stage ('push the image to registry'){
                 steps {
-                    sh 'docker push xn-poc/pms'
+                    sh 'docker push niraj1a/xn-poc-pms'
                 }    
             }
+            stage ('Deploy') {
+                steps {
+                    sh 'docker run -d -p 8081:8081 niraj1a/xn-poc-pms'
+                }
+            }
+
 
             /*
             Trying to copy to local tomcat folder and then stop and start
             */
-            stage('deploy-dev'){
+            stage('Run the spring boot application'){
                 steps{
-                        sh 'cp target/pms-0.0.1-SNAPSHOT.jar /home/niraj/tomcat10/webapps/'
-                        sh './home/niraj/tomcat10/bin/shutdown.sh'
-                        sh './home/niraj/tomcat10/bin/startup.sh'
+                        sh 'mvn clean spring-boot:run'
                 }
             }
     }
