@@ -28,14 +28,12 @@ pipeline {
                 */
                 }
             }
-            /*
-            Commented to remove docker image build stage from jenkins pipeline
+            
             stage ('Build docker image') {
                 steps {
                     sh 'docker build -t xn-poc/pms .'
                 }
             }
-            */
 
             /*
             Trying to copy to local tomcat folder and then stop and start
