@@ -7,64 +7,28 @@ pipeline {
         jdk 'openjdk-17'
     }
     stages {
-            stage('Build'){
-                steps {
-                    sh "mvn clean install"
-                }
+        stage('Build'){
+            steps {
+                sh "mvn clean install"
             }
-            stage('Sonarqube') {
-                environment {
-                    scannerHome = tool 'SonarQubeScanner'
-                }
-                steps {
+        }
+        stage('Sonarqube') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
+            steps {
                     withSonarQubeEnv('sonarqube') {
                     sh "mvn sonar:sonar -Dsonar.projectKey=jenkins-pms -Dsonar.host.url=http://35.244.27.133:9000/sonar -Dsonar.projectName=pms -Dsonar.token=sqp_bb05224518cfc7f11cedbd52295b853d8bbad88e -Dsonar.java.binaries=target/**/*"
                 }
-                /*
-                commenting this to check and see a success of the pipeline of the sonar build is a success
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-                */
-                }
             }
-            
-            stage ('Build docker image') {
-                steps {
-                    sh 'docker build -t niraj1a/xn-poc-pms .'
-                }
+        }
+        /*
+        Trying to start the spring-boot app locally
+        */
+        stage('Run the spring boot application'){
+            steps{
+                    sh 'mvn clean spring-boot:run'
             }
-            stage ('Login to docker') {
-                steps {
-
-                    /*
-                        withDockerRegistry(credentialsId: 'docker-registry', registryUrl: 'https://index.docker.io/v2/') {
-                        sh 'docker push niraj1a/xn-poc-pms'
-                        */
-                        
-                        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    }
-                }
-            }
-            stage ('push the image to registry'){
-                steps {
-                    sh 'docker push niraj1a/xn-poc-pms'
-                }    
-            }
-            stage ('Deploy') {
-                steps {
-                    sh 'docker run -d -p 8081:8081 niraj1a/xn-poc-pms'
-                }
-            }
-
-
-            /*
-            Trying to copy to local tomcat folder and then stop and start
-            */
-            stage('Run the spring boot application'){
-                steps{
-                        sh 'mvn clean spring-boot:run'
-                }
-            }
+        }
     }
 }
